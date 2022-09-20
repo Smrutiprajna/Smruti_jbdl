@@ -14,18 +14,22 @@ import java.sql.Statement;
 
 @Repository
 public class PersonRepository {
-   // public PersonRepository() throws SQLException {
-     //   Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:8080/jbdl36_person","root","Smruti@123");
-  //  }
+    private  Connection connection;
+    public PersonRepository(Connection connection) throws SQLException {
+      // Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:8080/jbdl36_person","root","Smruti@123");
+        this.connection=connection;
+        createTable();
+   }
    private static Logger logger = LoggerFactory.getLogger(PersonController.class);
-    @Autowired
-    Connection connection;
+   // @Autowired
+
+
     public void createPerson(Person person) {
         //Logic to create the perosn into db
         try {
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:8080/jbdl36_person","root","Smruti@123");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/jbdl36_person","root","Smruti@123");
             Statement statement= connection.createStatement();
-           boolean result=statement.execute("insert into person(id,first_name,last_name,age,dob)VALUES(1,'ABC','DEF',20,'2020-09-09')");
+           boolean result=statement.execute("insert into person(id,first_name,last_name,age,dob)VALUES(3,'ABC','DEF',20,'2020-09-09')");
            logger.info("PersonRepository result {}",result);
         } catch (SQLException e) {
             throw new RuntimeException(e);
